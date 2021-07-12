@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 from rich import print as rprint
 from rich.console import Console
 from rich.table import Table
@@ -22,11 +21,22 @@ def return_larger(a,b):
     
 
 class Ledger():
+    """ 
+This is the class for each account thing
+use __init__ and pass the name all instances of it are stored
+in the global dictionary accounts. Tables are added automatically
+You just have to call the methods asociated with this class
+add_debit add_credit and create_final table.
+Do it in form [Date, Account to debit, Description, Amount]
+"""
     def __init__(self,name):
         self.name = name
         self.debit = []
         self.credit = []
         self.table = Table(title=name)
+
+        self.total_debit = 0
+        self.total_credit = 0
 
         self.table.add_column("Date - Dr")
         self.table.add_column("To -Dr")
@@ -38,9 +48,13 @@ class Ledger():
         self.table.add_column("Amount - Cr")
 
     def add_debit(self,entry):
+        """ Do it in form [Date, Account to credit, Description, Amount"""
+        self.total_debit += int(entry[3])
         self.debit.append(entry)
  
     def add_credit(self, entry):
+        """ Do it in form [Date, Account to debit, Description, Amount"""
+        self.total_credit += int(entry[3])
         self.credit.append(entry)       
 
     def create_final_table(self):
@@ -66,6 +80,14 @@ class Ledger():
                 final_out.append(empty_entry + self.credit[i])
         for i in final_out:
             self.table.add_row(i[0],i[1],i[2],i[3],i[4],i[5],i[6],i[7])
+        if self.total_credit > self.total_debit:
+            self.table.add_row(" ", " ", "Balance c/d", str(self.total_credit - self.total_debit) ," ", " ", " ", " ", style="red")
+            self.table.add_row(" ", " ", "Total", str(self.total_credit), " "," ", "Total", str(self.total_credit), style="red")
+        else:
+            self.table.add_row(" ", " ", " ", " ", " ", " ", "Balance c/d", str(self.total_debit - self.total_credit) , style="green")
+            self.table.add_row(" ", " ", "Total", str(self.total_debit), " "," ", "Total", str(self.total_debit), style="green")
+
+
         console.print(self.table)
         return final_out
 
@@ -74,7 +96,7 @@ def parse_string(string):
     out = string.split(":")
     return out
 
-file_name = argv[1]
+file_name = argv[-1]
 accounts = {} 
 
 f = open(file_name, "r")
@@ -82,6 +104,7 @@ data = f.readlines()
 f.close()
 
 for line in data:
+    # Basically this part is ok
     if line.startswith("#"):
         continue
     else:
@@ -96,5 +119,6 @@ for line in data:
 
 
 for i in accounts:
+    # This part is ok too
     accounts[i].create_final_table()
     console.rule(":)")
