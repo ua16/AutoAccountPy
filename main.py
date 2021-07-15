@@ -38,6 +38,10 @@ Do it in form [Date, Account to debit, Description, Amount]
         self.total_debit = 0
         self.total_credit = 0
 
+        self.final_total = 0
+
+        self.balance = 0
+
         self.table.add_column("Date - Dr")
         self.table.add_column("To -Dr")
         self.table.add_column("Descripton - Dr")
@@ -83,9 +87,15 @@ Do it in form [Date, Account to debit, Description, Amount]
         if self.total_credit > self.total_debit:
             self.table.add_row(" ", " ", "Balance c/d", str(self.total_credit - self.total_debit) ," ", " ", " ", " ", style="red")
             self.table.add_row(" ", " ", "Total", str(self.total_credit), " "," ", "Total", str(self.total_credit), style="red")
+            self.final_total = self.total_credit
+            self.balance = self.total_credit - self.total_debit
+            self.table.add_row(" " , " ", " " , " " , " " , "Balance b/d", str(self.balance), style="red")
         else:
             self.table.add_row(" ", " ", " ", " ", " ", " ", "Balance c/d", str(self.total_debit - self.total_credit) , style="green")
             self.table.add_row(" ", " ", "Total", str(self.total_debit), " "," ", "Total", str(self.total_debit), style="green")
+            self.final_total = self.total_debit
+            self.balance = self.total_debit - self.total_credit
+            self.table.add_row(" " , " "  , "Balance b/d", str(self.balance), " " , " " , " " , " ", style="green")
 
 
         console.print(self.table)
@@ -122,3 +132,24 @@ for i in accounts:
     # This part is ok too
     accounts[i].create_final_table()
     console.rule(":)")
+
+
+trial_balance = Table(title="Trial Balance")
+trial_balance.add_column("Account")
+trial_balance.add_column("Debit", style="green")
+trial_balance.add_column("Credit", style="red")
+
+credit_total = 0
+debit_total = 0
+
+for i in accounts:
+    if accounts[i].total_credit > accounts[i].total_debit:
+        trial_balance.add_row(accounts[i].name, " " , str(accounts[i].balance))
+        credit_total += accounts[i].balance
+    else:
+        trial_balance.add_row(accounts[i].name, str(accounts[i].balance), " ", style="green")
+        debit_total += accounts[i].balance
+
+trial_balance.add_row("total", str(debit_total), str(credit_total))
+
+console.print(trial_balance)

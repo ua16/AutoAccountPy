@@ -1,0 +1,5 @@
+#+TITLE: AutoAccount
+
+* TODO
++ [X] Add totals for ledgers
++ [X] Add trial Balance
