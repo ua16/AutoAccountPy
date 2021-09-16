@@ -1,0 +1,42 @@
+#+TITLE: AutoAccountPy
+
+* AutoAccountPy
+Generate T Accounts and Trial Balance from records.
+# Put the image here
+
+[[./img/Screen.png]]
+
+Requires:
+- Python3
+- rich
+
+To install rich do:
+
+#+BEGIN_SRC
+$ pip3 install rich
+#+END_SRC
+
+* The Records
+
+The records should be listed in a file in the following
+format:
+
+#+BEGIN_SRC
+Date:Account to Debit:Account to Credit:amount:Desc
+#+END_SRC
+
+Comments begin with the '#' character. 
+
+Do not have empty lines as this will cause errors
+
+Every line must be either a record or a comment.
+
+* Notes 
+
+Not tested on Windows.
+
+Empty lines cause errors
+
+* License
+
+Licensed under GPL V.3

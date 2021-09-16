@@ -75,7 +75,7 @@ Do it in form [Date, Account to debit, Description, Amount]
                 b = self.credit[i]
             except IndexError:
                 credit_there = False
-  
+# 45tag2  
             if debit_there == True and credit_there == True:
                 final_out.append(self.debit[i] + self.credit[i])
             elif debit_there == True and credit_there == False:
@@ -89,7 +89,7 @@ Do it in form [Date, Account to debit, Description, Amount]
             self.table.add_row(" ", " ", "Total", str(self.total_credit), " "," ", "Total", str(self.total_credit), style="red")
             self.final_total = self.total_credit
             self.balance = self.total_credit - self.total_debit
-            self.table.add_row(" " , " ", " " , " " , " " , "Balance b/d", str(self.balance), style="red")
+            self.table.add_row(" " , " ", " " , " " , " " ," ", "Balance b/d", str(self.balance), style="red")
         else:
             self.table.add_row(" ", " ", " ", " ", " ", " ", "Balance c/d", str(self.total_debit - self.total_credit) , style="green")
             self.table.add_row(" ", " ", "Total", str(self.total_debit), " "," ", "Total", str(self.total_debit), style="green")
@@ -103,7 +103,8 @@ Do it in form [Date, Account to debit, Description, Amount]
 
           
 def parse_string(string):
-    out = string.split(":")
+    out = string.replace("\n",'')
+    out = out.split(":", 4)
     return out
 
 file_name = argv[-1]
