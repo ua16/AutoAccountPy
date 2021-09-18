@@ -114,10 +114,7 @@ f = open(file_name, "r")
 data = f.readlines()
 f.close()
 
-for line in data:
-    # Basically this part is ok
-    if line.startswith("#"):
-        continue
+e
     else:
         current_line = parse_string(line)
         if current_line[1] not in accounts:

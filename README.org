@@ -27,15 +27,11 @@ Date:Account to Debit:Account to Credit:amount:Desc
 
 Comments begin with the '#' character. 
 
-Do not have empty lines as this will cause errors
 
-Every line must be either a record or a comment.
 
 * Notes 
 
 Not tested on Windows.
-
-Empty lines cause errors
 
 * License
 
