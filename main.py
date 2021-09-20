@@ -75,7 +75,7 @@ Do it in form [Date, Account to debit, Description, Amount]
                 b = self.credit[i]
             except IndexError:
                 credit_there = False
-# 45tag2  
+
             if debit_there == True and credit_there == True:
                 final_out.append(self.debit[i] + self.credit[i])
             elif debit_there == True and credit_there == False:
@@ -114,7 +114,10 @@ f = open(file_name, "r")
 data = f.readlines()
 f.close()
 
-e
+for line in data:
+    # Basically this part is ok
+    if line.startswith("#") or line.startswith('\n'):
+        continue
     else:
         current_line = parse_string(line)
         if current_line[1] not in accounts:
@@ -124,6 +127,7 @@ e
 
         accounts[current_line[1]].add_debit([current_line[0],current_line[2],current_line[4],current_line[3]])
         accounts[current_line[2]].add_credit([current_line[0],current_line[1],current_line[4],current_line[3]])
+
 
 
 for i in accounts:
