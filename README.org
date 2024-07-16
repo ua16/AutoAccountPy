@@ -1,6 +1,5 @@
 #+TITLE: AutoAccountPy
 
-* AutoAccountPy
 Generate T Accounts and Trial Balance from records.
 # Put the image here
 
